@@ -1936,7 +1936,7 @@ async function boot(){
     prog(8,"Dünya dokuları yükleniyor");
     const loadTex=u=>new Promise((res,rej)=>texLoader.load(u,t=>{t.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());res(t);},undefined,rej));
     const loadImg=u=>new Promise((res,rej)=>{const i=new Image();i.onload=()=>res(i);i.onerror=rej;i.src=u;});
-    const [day,night,mask,eg,ea]=await Promise.all([loadTex("assets/day.jpg"),loadTex("assets/night.jpg"),loadTex("assets/mask.jpg"),loadImg("assets/elev_g.png"),loadImg("assets/elev_a.png")]);
+    const [day,night,mask,eg,ea]=await Promise.all([loadTex("day.jpg"),loadTex("night.jpg"),loadTex("mask.jpg"),loadImg("elev_g.png"),loadImg("elev_a.png")]);
     day.colorSpace=THREE.SRGBColorSpace; night.colorSpace=THREE.SRGBColorSpace; mask.colorSpace=THREE.NoColorSpace;
     U.dayT.value=day; U.nightT.value=night; U.maskT.value=mask;
     prog(45,"Kabartma hesaplanıyor"); await frameYield();
@@ -1944,7 +1944,7 @@ async function boot(){
     U.ovT.value=buildOverlay(); await frameYield();
     prog(70,"Rota çiziliyor");
     buildWorld(); buildRoutes(); buildBeams(); VEH=buildVehicles(); buildCityMarks();
-    fetch("assets/detail.json").then(r=>r.json()).then(j=>{DETAIL=j; if(patchState.c) drawDetail([U.detBox.value.x,U.detBox.value.y,U.detBox.value.z,U.detBox.value.w]);}).catch(()=>{});
+    fetch("detail.json").then(r=>r.json()).then(j=>{DETAIL=j; if(patchState.c) drawDetail([U.detBox.value.x,U.detBox.value.y,U.detBox.value.z,U.detBox.value.w]);}).catch(()=>{});
     prog(100,"Hazır"); await frameYield();
     cam.heading=0; render(performance.now());
     $("load").classList.add("done");
